@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage('Shell Commands'){
+            steps{
+                echo "Running on ${env.NODE_NAME}"
+                echo "Current directory: ${env.WORKSPACE}"
+            }
+        }
+        stage('triggering'){
+            steps{
+                build job: 'pipe2', wait: true
+            }
+        }
+    }
+}
