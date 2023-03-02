@@ -1,0 +1,29 @@
+pipeline {
+    agent{
+        label 'mysl'
+    }
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage('Shell Commands'){
+            steps{
+                echo "Running on ${env.NODE_NAME}"
+                echo "Current directory: ${env.WORKSPACE}"
+                echo "executed by pipeline 1"
+            }
+        }
+        stage('emailing'){
+            steps{
+                emailext (
+                    subject: "Build Notification",
+                    body: 'Build has completed',
+                    to: 'rohanrustagi21@gmail.com'
+                    )
+            }
+        }
+    }
+}
